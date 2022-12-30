@@ -6,37 +6,42 @@ import { useState, useEffect,useContext } from "react";
 import Link from "next/link";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 import Head from "next/head";
+import { useOrder } from "../../context/myMangaList";
+import axios from "axios";
 
 import { useMyMangaStore } from "../../context/myMangaList";
+
+
+// 
+
 
 const MangaInfo = ({ mangaIn,chaptersData }) => {
   const [order, setOrder] = useState(true);
   const [orderValue, setOrderValue] = useState("0");
-  // const [mangaChap, setMangaChap] = useState([chaptersData]);
+  const [mangaChap, setMangaChap] = useState([chaptersData]);
   const [readingCount, setReadingCount] = useState("0")
   const addReading = useMyMangaStore((state) => state.addReading)
 
-  // console.log(mangaChap)
-
-
+  console.log(mangaChap)
+  
+  
+  // const orderValue = useOrder(state=>state.orderValue)
+  // const orders = useOrder(state=> state.orders)
+  
+  // console.log(orders)
 
   
   
-  // useEffect(() => {
-  //   const fetchMangaChapters = async () => {
-  //     const response = await fetch(
-  //       `https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}&lang=en`,
-  //       {
-  //         headers:{
-  //           'Access-Control-Allow-Origin': '*',
-  //         }
-  //       }
-  //     );
-  //     const data = await response.json();
-  //     setMangaChap(data);
-  //   };
-  //   fetchMangaChapters();
-  // }, [orderValue]);
+  useEffect(() => {
+    const fetchMangaChapters = async () => {
+      const response = await axios.get(
+        `https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}&lang=en`
+      );
+      const data = response.data
+      setMangaChap(data);
+    };
+    fetchMangaChapters();
+  }, [orderValue]);
 
  
   return (
@@ -63,7 +68,7 @@ const MangaInfo = ({ mangaIn,chaptersData }) => {
         </div>
       </div>
       <div className="grid grid-cols-4 gap-2 mt-5 md:grid-cols-7 ">
-        {chaptersData.chapters?.map((chap) => {
+        {mangaChap.chapters?.map((chap) => {
           return (
             <div
             onClick={()=>addReading(mangaIn.comic.id,chap.chap)}
@@ -85,8 +90,12 @@ const MangaInfo = ({ mangaIn,chaptersData }) => {
 
 export default MangaInfo;
 
+
+
+
 export async function getServerSideProps(context) {
   const { params } = context;
+  
 
   const response = await fetch(
     `https://api.comick.app/comic/${params.mangainfo}`
@@ -102,6 +111,7 @@ export async function getServerSideProps(context) {
     props: {
       mangaIn: data,
       chaptersData,
+      
     },
   };
 }

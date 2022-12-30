@@ -7,7 +7,7 @@ export const useMyMangaStore = create(
       (set, get) => ({
         myMangaLists: [],
         addNewManga: (myBok) =>
-          set((state) => ({ myMangaLists: [ myBok,...state.myMangaLists] })),
+          set((state) => ({ myMangaLists: [myBok, ...state.myMangaLists] })),
         removeManga: (myBok) =>
           set((state) => ({
             myMangaLists: state.myMangaLists.filter(
@@ -15,7 +15,6 @@ export const useMyMangaStore = create(
             ),
           })),
 
-        
         addReading: (id, read) =>
           set((state) => ({
             myMangaLists: state.myMangaLists.map((e) => {
@@ -25,8 +24,6 @@ export const useMyMangaStore = create(
               return { ...e };
             }),
           })),
-         
-      
       }),
       {
         name: "myManga",
@@ -35,3 +32,8 @@ export const useMyMangaStore = create(
   )
 );
 
+export const useOrder = create((set) => ({
+  orders:"0",
+  orderValue:(value)=>set((state)=>({orders:value}))
+})
+);
