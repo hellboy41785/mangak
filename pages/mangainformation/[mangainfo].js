@@ -28,7 +28,7 @@ const MangaInfo = ({ mangaIn }) => {
         `https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}&lang=en`,
         {
           headers:{
-            'Access-Control-Allow-Origin': 'https://mangak.vercel.app',
+            'Access-Control-Allow-Origin': '*',
           }
         }
       );
