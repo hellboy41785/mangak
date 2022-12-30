@@ -1,15 +1,8 @@
-import Head from "next/head";
-import Image from "next/image";
 import LatestManga from "../components/latestmanga";
-import styles from "../styles/Home.module.css";
-import { useQuery } from "react-query";
+
 import TrendingManga from "../components/Trending";
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 
 export default function Home({ latest, trends }) {
-  // const trend = trends["7"].map((tren)=><TrendingManga key={tren.slug}  trends={tren} />)
-
   return (
     <>
       <TrendingManga trends={trends} />
@@ -43,7 +36,6 @@ export async function getServerSideProps(context) {
     props: {
       latest,
       trends: trend?.trending,
-      
     },
   };
 }
