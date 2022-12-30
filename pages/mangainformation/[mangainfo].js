@@ -22,7 +22,7 @@ const MangaInfo = ({ mangaIn,chaptersData }) => {
   const [readingCount, setReadingCount] = useState("0")
   const addReading = useMyMangaStore((state) => state.addReading)
 
-  console.log(mangaChap)
+  
   
   
   // const orderValue = useOrder(state=>state.orderValue)
@@ -35,7 +35,9 @@ const MangaInfo = ({ mangaIn,chaptersData }) => {
   useEffect(() => {
     const fetchMangaChapters = async () => {
       const response = await axios.get(
-        `https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}&lang=en`
+        `https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}&lang=en`,{
+          mode: 'no-cors',
+        }
       );
       const data = response.data
       setMangaChap(data);
