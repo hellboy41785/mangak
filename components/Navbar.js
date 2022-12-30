@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-import axios from "axios";
-
 import Image from "next/image";
 import { useRouter } from 'next/router';
 
@@ -16,20 +14,19 @@ const Navbar = () => {
     setSearch([])
   }
 
-  const instance = axios.create({
-    baseURL: 'https://corsproxy.itsyourhellboy.repl.co/proxy?url=',
-  });
+ 
   useEffect(() => {
     let isMounted = true;
     const fetchManga = async () => {
       try {
-        const response = await instance.get("https://api.comick.app/search", {
+        const response = await fetch("https://corsproxy.itsyourhellboy.repl.co/proxy?url=https://api.comick.app/search", {
           params: {
             q: search,
           },
         });
+        const data= await response.json()
         if (isMounted) {
-          setResult(response.data);
+          setResult(data);
         }
       } catch (err) {}
     };
