@@ -30,16 +30,16 @@ const MangaInfo = ({ mangaIn,chaptersData }) => {
   // const orders = useOrder(state=> state.orders)
   
   // console.log(orders)
-  const instance = axios.create({
-    baseURL: 'https://corsproxy.itsyourhellboy.repl.co?url=',
-  });
+  // const instance = axios.create({
+  //   baseURL: 'https://corsproxy.itsyourhellboy.repl.co?url=',
+  // });
   
   useEffect(() => {
     const fetchMangaChapters = async () => {
-      const response = await instance.get(
-        `https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}&lang=en`
+      const response = await fetch(
+        `https://corsproxy.itsyourhellboy.repl.co/proxy?url=https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}&lang=en`
       );
-      const data = response.data
+      const data =await response.json()
       setMangaChap(data);
     };
     fetchMangaChapters();
