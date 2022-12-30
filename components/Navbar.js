@@ -21,7 +21,7 @@ const Navbar = () => {
     let isMounted = true;
     const fetchManga = async () => {
       try {
-        const response = await fetch(`https://api.comick.app/search/?page=1&limit=30&q=${search}`);
+        const response = await fetch(`https://corsproxy.itsyourhellboy.repl.co/proxy?url=https://api.comick.app/search/?q=${search}`);
         const data= await response.json()
         if (isMounted) {
           setResult(data);
