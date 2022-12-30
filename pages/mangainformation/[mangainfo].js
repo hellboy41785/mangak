@@ -10,13 +10,13 @@ import { useOrder } from "../../context/myMangaList";
 import axios from "axios";
 
 import { useMyMangaStore } from "../../context/myMangaList";
-import cors from 'cors';
 
 
-// 
 
 
-const MangaInfo = ({ mangaIn,chaptersData }) => {
+
+
+const MangaInfo = ({ mangaIn }) => {
   const [order, setOrder] = useState(true);
   const [orderValue, setOrderValue] = useState("0");
   const [mangaChap, setMangaChap] = useState([]);
@@ -24,15 +24,6 @@ const MangaInfo = ({ mangaIn,chaptersData }) => {
   const addReading = useMyMangaStore((state) => state.addReading)
 
   
-  
-  
-  // const orderValue = useOrder(state=>state.orderValue)
-  // const orders = useOrder(state=> state.orders)
-  
-  // console.log(orders)
-  // const instance = axios.create({
-  //   baseURL: 'https://corsproxy.itsyourhellboy.repl.co?url=',
-  // });
   
   useEffect(() => {
     const fetchMangaChapters = async () => {
@@ -103,16 +94,11 @@ export async function getServerSideProps(context) {
     `https://api.comick.app/comic/${params.mangainfo}`
   );
   const data = await response.json()
-  const chapters = await fetch(
-    `https://api.comick.app/comic/${data.comic.id}/chapter?chap-order=1&lang=en`
-    
-  );
-  const chaptersData = await chapters.json();
+
   
   return {
     props: {
       mangaIn: data,
-      chaptersData,
       
     },
   };

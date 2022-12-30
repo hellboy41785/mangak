@@ -15,11 +15,15 @@ const Navbar = () => {
     router.push(`/search/${search}`)
     setSearch([])
   }
+
+  const instance = axios.create({
+    baseURL: 'https://corsproxy.itsyourhellboy.repl.co/proxy?url=',
+  });
   useEffect(() => {
     let isMounted = true;
     const fetchManga = async () => {
       try {
-        const response = await axios.get("https://api.comick.app/search", {
+        const response = await instance.get("https://api.comick.app/search", {
           params: {
             q: search,
           },
