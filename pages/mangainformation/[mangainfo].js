@@ -25,7 +25,12 @@ const MangaInfo = ({ mangaIn }) => {
   useEffect(() => {
     const fetchMangaChapters = async () => {
       const response = await fetch(
-        `https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}&lang=en`
+        `https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}&lang=en`,
+        {
+          headers:{
+            'Access-Control-Allow-Origin': 'https://mangak.vercel.app',
+          }
+        }
       );
       const data = await response.json();
       setMangaChap(data);
