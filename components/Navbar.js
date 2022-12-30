@@ -14,8 +14,7 @@ const Navbar = () => {
     setSearch([])
   }
   
-  console.log(search)
-  console.log(result)
+
  
   useEffect(() => {
     let isMounted = true;
