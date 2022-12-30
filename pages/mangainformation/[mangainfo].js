@@ -10,6 +10,7 @@ import { useOrder } from "../../context/myMangaList";
 import axios from "axios";
 
 import { useMyMangaStore } from "../../context/myMangaList";
+import cors from 'cors';
 
 
 // 
@@ -18,7 +19,7 @@ import { useMyMangaStore } from "../../context/myMangaList";
 const MangaInfo = ({ mangaIn,chaptersData }) => {
   const [order, setOrder] = useState(true);
   const [orderValue, setOrderValue] = useState("0");
-  const [mangaChap, setMangaChap] = useState([chaptersData]);
+  const [mangaChap, setMangaChap] = useState([]);
   const [readingCount, setReadingCount] = useState("0")
   const addReading = useMyMangaStore((state) => state.addReading)
 
@@ -30,7 +31,7 @@ const MangaInfo = ({ mangaIn,chaptersData }) => {
   
   // console.log(orders)
   const instance = axios.create({
-    baseURL: 'https://cors-proxy.com/',
+    baseURL: 'https://corsproxy.itsyourhellboy.repl.co',
   });
   
   useEffect(() => {
