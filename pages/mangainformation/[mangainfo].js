@@ -31,7 +31,7 @@ const MangaInfo = ({ mangaIn,chaptersData }) => {
   
   // console.log(orders)
   const instance = axios.create({
-    baseURL: 'https://corsproxy.itsyourhellboy.repl.co',
+    baseURL: 'https://corsproxy.itsyourhellboy.repl.co?url=',
   });
   
   useEffect(() => {
