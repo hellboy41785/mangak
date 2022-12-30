@@ -29,12 +29,13 @@ const MangaInfo = ({ mangaIn,chaptersData }) => {
   // const orders = useOrder(state=> state.orders)
   
   // console.log(orders)
-
-  
+  const instance = axios.create({
+    baseURL: 'https://cors-proxy.com/',
+  });
   
   useEffect(() => {
     const fetchMangaChapters = async () => {
-      const response = await axios.get(
+      const response = await instance.get(
         `https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}&lang=en`,{
           mode: 'no-cors',
         }
