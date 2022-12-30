@@ -9,34 +9,34 @@ import Head from "next/head";
 
 import { useMyMangaStore } from "../../context/myMangaList";
 
-const MangaInfo = ({ mangaIn }) => {
+const MangaInfo = ({ mangaIn,chaptersData }) => {
   const [order, setOrder] = useState(true);
   const [orderValue, setOrderValue] = useState("0");
-  const [mangaChap, setMangaChap] = useState([]);
+  // const [mangaChap, setMangaChap] = useState([chaptersData]);
   const [readingCount, setReadingCount] = useState("0")
   const addReading = useMyMangaStore((state) => state.addReading)
 
-
+  // console.log(mangaChap)
 
 
 
   
   
-  useEffect(() => {
-    const fetchMangaChapters = async () => {
-      const response = await fetch(
-        `https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}&lang=en`,
-        {
-          headers:{
-            'Access-Control-Allow-Origin': '*',
-          }
-        }
-      );
-      const data = await response.json();
-      setMangaChap(data);
-    };
-    fetchMangaChapters();
-  }, [orderValue]);
+  // useEffect(() => {
+  //   const fetchMangaChapters = async () => {
+  //     const response = await fetch(
+  //       `https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}&lang=en`,
+  //       {
+  //         headers:{
+  //           'Access-Control-Allow-Origin': '*',
+  //         }
+  //       }
+  //     );
+  //     const data = await response.json();
+  //     setMangaChap(data);
+  //   };
+  //   fetchMangaChapters();
+  // }, [orderValue]);
 
  
   return (
@@ -63,7 +63,7 @@ const MangaInfo = ({ mangaIn }) => {
         </div>
       </div>
       <div className="grid grid-cols-4 gap-2 mt-5 md:grid-cols-7 ">
-        {mangaChap.chapters?.map((chap) => {
+        {chaptersData.chapters?.map((chap) => {
           return (
             <div
             onClick={()=>addReading(mangaIn.comic.id,chap.chap)}
@@ -91,10 +91,17 @@ export async function getServerSideProps(context) {
   const response = await fetch(
     `https://api.comick.app/comic/${params.mangainfo}`
   );
-  const data = await response.json();
+  const data = await response.json()
+  const chapters = await fetch(
+    `https://api.comick.app/comic/${data.comic.id}/chapter?chap-order=1&lang=en`
+    
+  );
+  const chaptersData = await chapters.json();
+  
   return {
     props: {
       mangaIn: data,
+      chaptersData,
     },
   };
 }
