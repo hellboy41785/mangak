@@ -36,9 +36,7 @@ const MangaInfo = ({ mangaIn,chaptersData }) => {
   useEffect(() => {
     const fetchMangaChapters = async () => {
       const response = await instance.get(
-        `https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}&lang=en`,{
-          mode: 'no-cors',
-        }
+        `https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}&lang=en`
       );
       const data = response.data
       setMangaChap(data);
