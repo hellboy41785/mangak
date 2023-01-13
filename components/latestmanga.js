@@ -10,13 +10,11 @@ const LatestManga = ({ latest }) => {
     <>
       <div className="card w-[180px] bg-base-100 shadow-xl md:max-w-[186.25px] h-[383.5px] ">
         <figure className="">
-          <Image
+          <img
            className="w-auto h-auto rounded-md "
             rel="preload"
             src={`https://meo.comick.pictures/${image}`}
-            alt="manga"
-            width={300}
-            height={238}
+            alt="manga"         
             priority="high"
             as={image}
           />

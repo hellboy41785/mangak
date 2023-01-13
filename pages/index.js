@@ -7,7 +7,7 @@ export default function Home({ latest, trends }) {
     <>
       <TrendingManga trends={trends} />
       <h1 className="mx-2 mt-10 text-xl">Latest Manga</h1>
-      <div className="grid grid-cols-2 px-2 mt-2 text-2xl sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-2">
+      <div className="grid w-full grid-cols-2 gap-2 px-2 mt-2 text-2xl sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7">
         {latest.map((latest) => {
           return (
             <div className="" key={latest.id}>
