@@ -11,7 +11,7 @@ const LatestManga = ({ latest }) => {
       <div className="card w-[180px] bg-base-100 shadow-xl md:max-w-[186.25px] h-[383.5px] ">
         <figure className="">
           <Image
-           className=" rounded-md w-auto h-auto"
+           className="w-auto h-auto rounded-md "
             rel="preload"
             src={`https://meo.comick.pictures/${image}`}
             alt="manga"
@@ -21,10 +21,10 @@ const LatestManga = ({ latest }) => {
             as={image}
           />
         </figure>
-        <div className=" px-2 card-body ">
-          <h2 className="truncate text-ellipsis text-sm ">{info.title}</h2>
+        <div className="px-2 card-body">
+          <h2 className="text-sm truncate text-ellipsis ">{info.title}</h2>
           <p></p>
-          <div className=" ">
+          <div className="">
             <Link href={`/mangainformation/${info.slug}`}>
               <div className="px-2 text-sm btn btn-outline btn-warning">
                 Latest Chapter : {info.last_chapter}

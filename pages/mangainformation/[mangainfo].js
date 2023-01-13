@@ -17,13 +17,13 @@ const MangaInfo = ({ mangaIn }) => {
   const [readingCount, setReadingCount] = useState("0");
   const addReading = useMyMangaStore((state) => state.addReading);
 
- 
-  
+  const chaps = mangaChap?.chapters;
+  // console.log(chaps)
 
   useEffect(() => {
     const fetchMangaChapters = async () => {
       const response = await fetch(
-        `https://corsproxy.itsyourhellboy.repl.co/proxy?url=https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}`
+        `https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}`
       );
       const data = await response.json();
       setMangaChap(data);
@@ -31,14 +31,12 @@ const MangaInfo = ({ mangaIn }) => {
     fetchMangaChapters();
   }, [orderValue]);
 
-  
-
   return (
     <>
       <Head>
         <title>{mangaIn?.comic.title}</title>
       </Head>
-      <div className=" px-2 py-10 ">
+      <div className="px-2 py-10 ">
         <MangaInformation mangaIn={mangaIn} readingCount={readingCount} />
         <div
           onClick={() => setOrder((prev) => !prev)}
@@ -59,7 +57,7 @@ const MangaInfo = ({ mangaIn }) => {
         <div className="grid grid-cols-4 gap-2 mt-5 md:grid-cols-7 ">
           {mangaChap.chapters?.map((chap) => {
             return (
-              <Fragment  key={chap.id}>
+              <Fragment key={chap.id}>
                 {chap.lang === "en" && (
                   <div
                     onClick={() => addReading(mangaIn.comic.id, chap.chap)}
@@ -70,7 +68,11 @@ const MangaInfo = ({ mangaIn }) => {
                       <h1 className="p-4 text-center">
                         {chap.chap === null ? "0" : chap.chap}
                       </h1>
-                      <p className="text-xs text-center ">{chap.group_name}</p>
+                      <div className="truncate text-ellipsis">
+                        <p className="text-xs text-center ">
+                          {chap.group_name}
+                        </p>
+                      </div>
                     </Link>
                   </div>
                 )}
