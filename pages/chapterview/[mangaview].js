@@ -22,7 +22,7 @@ function mangaView({ read, info }) {
         {read.map((img) => {
           return (
             <div className="" key={img.s}>
-              <Image
+              <img
                 src={
                   `https://meo3.comick.pictures/${img.b2key}` === 500
                     ? `https://meo2.comick.pictures/file/comick/${img.b2key}`

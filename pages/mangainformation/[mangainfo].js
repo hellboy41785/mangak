@@ -65,11 +65,12 @@ const MangaInfo = ({ mangaIn }) => {
                     className="rounded-md bg-[#3e3322] hover:bg-yellow-500 hover:text-black flex items-center justify-center"
                   >
                     <Link href={`/chapterview/${chap.hid}`}>
-                      <h1 className="p-4 text-center">
-                        {chap.chap === null ? "0" : chap.chap}
-                      </h1>
-                      <div className="truncate text-ellipsis">
-                        <p className="text-xs text-center ">
+                      <div className="flex flex-col items-center justify-center ">
+                        <h1 className="p-4 ">
+                          {chap.chap === null ? "0" : chap.chap}
+                        </h1>
+
+                        <p className="w-1/2 text-xs truncate text-ellipsis">
                           {chap.group_name}
                         </p>
                       </div>

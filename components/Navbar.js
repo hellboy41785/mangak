@@ -47,7 +47,7 @@ const Navbar = () => {
                     onClick={() => setSearch([])}
                     className="flex gap-3 p-2 w-full hover:bg-[#dca347] hover:text-black rounded-md items-center"
                   >
-                    <Image
+                    <img
                       className="rounded-md "
                       src={`https://meo.comick.pictures/${
                         sh?.md_covers === undefined

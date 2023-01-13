@@ -66,7 +66,7 @@ const MangaInformation = ({ mangaIn }) => {
     <>
       <div className="flex justify-between ">
         <div className="flex flex-col gap-4 lg:flex-row">
-          <Image
+          <img
             className="rounded-md"
             rel="preload"
             priority="high"
@@ -77,8 +77,8 @@ const MangaInformation = ({ mangaIn }) => {
             alt="covers"
             
           />
-          <div className=" text-3xl">
-            <h1 className="text-3xl">{info.title}</h1>
+          <div className="">
+            <h1 className="text-2xl sm:text-3xl">{info.title}</h1>
             <div className="px-3 mt-5 border border-yellow-500 rounded-md flex-">
               <h1 className="text-sm ">Alternative name : </h1>
               {info.titles.map((title) => (
@@ -88,13 +88,13 @@ const MangaInformation = ({ mangaIn }) => {
               ))}
             </div>
 
-            <div className="mt-5 dropdown dropdown-hover w-full">
+            <div className="w-full mt-5 dropdown dropdown-hover">
               <label tabIndex="0" className="m-1 btn">
                 Tags
               </label>
               <ul
                 tabIndex="0"
-                className="dropdown-content menu p-2 shadow bg-base-100 rounded-box  flex-row "
+                className="flex-row p-2 shadow dropdown-content menu bg-base-100 rounded-box "
               >
                 <>
                   {info.tags === undefined || null ? (

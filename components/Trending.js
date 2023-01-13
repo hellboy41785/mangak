@@ -9,11 +9,9 @@ const TrendingManga = ({ trends }) => {
             className=" h-56 w-[150px] hover:bg-[#332818]"
             
           >
-            <Image
+            <img
               className="min-w-[150px] h-[200px] rounded-sm p-[1px]"
               src={`https://meo.comick.pictures/${trend.md_covers[0].b2key}`}
-              width={200}
-              height={100}
               alt="cover"
               priority={true}
             />
