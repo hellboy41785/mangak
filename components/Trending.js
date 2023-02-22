@@ -6,16 +6,16 @@ const TrendingManga = ({ trends }) => {
   const trending = trends["7"]?.map((trend) => 
         <Link href={`/mangainformation/${trend.slug}`} key={trend.slug}>
           <div
-            className=" h-56 w-[150px] hover:bg-[#332818]"
+            className=" h-56 w-[150px] hover:bg-[#332818] rounded-md"
             
           >
             <img
-              className="min-w-[150px] h-[200px] rounded-sm p-[1px]"
+              className="min-w-[150px] h-[200px] rounded-md p-[1px]"
               src={`https://meo.comick.pictures/${trend.md_covers[0].b2key}`}
               alt="cover"
-              priority={true}
+              priority="true"
             />
-            <h1 className="px-[2px] text-sm truncate text-ellipsis">
+            <h1 className="p-1 text-sm truncate text-ellipsis text-center">
               {trend.title}
             </h1>
           </div>

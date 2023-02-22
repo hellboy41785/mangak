@@ -1,9 +1,7 @@
 import striptags from "striptags";
-import Image from "next/image";
 import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import { useMyMangaStore } from "../context/myMangaList";
-import ReactDOMServer from "react-dom/server";
 
 const MangaInformation = ({ mangaIn }) => {
   const infos = mangaIn.comic;
@@ -22,7 +20,7 @@ const MangaInformation = ({ mangaIn }) => {
     id: infos.id,
     genres: infos?.md_comic_md_genres,
   };
-  const cleanAbout = striptags(info.about).replace(/(https?:\/\/[^\s]+)/gi, '');
+  const cleanAbout = striptags(info.about).replace(/(https?:\/\/[^\s]+)/gi, "");
   const { myMangaLists, addNewManga, removeManga, addFollow } = useMyMangaStore(
     (state) => ({
       myMangaLists: state.myMangaLists,
@@ -48,19 +46,9 @@ const MangaInformation = ({ mangaIn }) => {
     setMyList(myMangaLists);
   }, [myMangaLists]);
 
-  const Value = () => {
-    return (
-      <>
-        {myList?.map((e) => {
-          return <>{e.id === info.id && <p>{e.id}</p>}</>;
-        })}
-      </>
-    );
-  };
-  const component = <Value key={info.id} />;
-  const componentString = ReactDOMServer.renderToStaticMarkup(component);
 
-  const id = Number(striptags(componentString));
+  const id = myList?.find((e) => e.id === info.id)?.id || null;
+
 
   return (
     <>
@@ -75,7 +63,6 @@ const MangaInformation = ({ mangaIn }) => {
             width={640}
             height={700}
             alt="covers"
-            
           />
           <div className="">
             <h1 className="text-2xl sm:text-3xl">{info.title}</h1>
@@ -100,22 +87,16 @@ const MangaInformation = ({ mangaIn }) => {
                   {info.tags === undefined || null ? (
                     <>
                       {info.genres.map((genre) => (
-                        <li  key={genre.md_genres.slug}>
-                          <a key={genre.md_genres.name} className="text-xs">
-                            {" "}
-                            {genre.md_genres.name}
-                          </a>
+                        <li key={genre.md_genres.slug}>
+                          <a className="text-xs"> {genre.md_genres.name}</a>
                         </li>
                       ))}
                     </>
                   ) : (
                     <>
                       {info.tags.map((tag) => (
-                        <li  key={tag.mu_categories.slug}>
-                          <a key={tag.mu_categories.title} className="text-xs">
-                            {" "}
-                            {tag?.mu_categories.title}
-                          </a>
+                        <li key={tag.mu_categories.slug}>
+                          <a className="text-xs"> {tag?.mu_categories.title}</a>
                         </li>
                       ))}
                     </>
@@ -142,26 +123,24 @@ const MangaInformation = ({ mangaIn }) => {
                 <div>
                   {myList?.map((book) => {
                     return (
-                      <>
-                        <div key={book.id}>
-                          {book.slug === info.slug && (
-                            <div
-                              className="flex items-center gap-3 "
-                              key={book.id}
-                            >
-                              <div onClick={() => removeManga(book.slug)}>
-                                <BsFillBookmarkFill />
-                              </div>
-                              <div className="flex gap-5 text-lg sm:text-xl">
-                                Chapter Reading
-                                <div className="p-1 px-20 text-black bg-yellow-400 rounded-md">
-                                  {book.reading} / {book.count}
-                                </div>
+                      <div key={book.id}>
+                        {book.slug === info.slug && (
+                          <div
+                            className="flex items-center gap-3 "
+                            key={book.id}
+                          >
+                            <div onClick={() => removeManga(book.slug)}>
+                              <BsFillBookmarkFill />
+                            </div>
+                            <div className="flex gap-5 text-lg sm:text-xl">
+                              Chapter Reading
+                              <div className="p-1 px-20 text-black bg-yellow-400 rounded-md">
+                                {book.reading} / {book.count}
                               </div>
                             </div>
-                          )}
-                        </div>
-                      </>
+                          </div>
+                        )}
+                      </div>
                     );
                   })}
                 </div>

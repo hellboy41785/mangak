@@ -2,26 +2,26 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 import Image from "next/image";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
   const [result, setResult] = useState([]);
   const router = useRouter();
-  const handleClick =(e)=>{
+  const handleClick = (e) => {
     e.preventDefault();
-    router.push(`/search/${search}`)
-    setSearch([])
-  }
-  
+    router.push(`/search/${search}`);
+    setSearch([]);
+  };
 
- 
   useEffect(() => {
     let isMounted = true;
     const fetchManga = async () => {
       try {
-        const response = await fetch(`https://corsproxy.itsyourhellboy.repl.co/proxy?url=https://api.comick.app/search/?q=${search}`);
-        const data= await response.json()
+        const response = await fetch(
+          `${process.env.CORS_URL}https://api.comick.app/search/?q=${search}`
+        );
+        const data = await response.json();
         if (isMounted) {
           setResult(data);
         }
@@ -101,10 +101,7 @@ const Navbar = () => {
               >
                 <Link href={`/profile`}>
                   <li>
-                    <p className="justify-between">
-                      My List
-                      <span className="badge">New</span>
-                    </p>
+                    <p className="">My List</p>
                   </li>
                 </Link>
               </ul>

@@ -1,6 +1,3 @@
-import { info } from "daisyui/src/colors";
-import Image from "next/image";
-import striptags from "striptags";
 import MangaInformation from "../../components/MangaInformation";
 import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
@@ -17,19 +14,21 @@ const MangaInfo = ({ mangaIn }) => {
   const [readingCount, setReadingCount] = useState("0");
   const addReading = useMyMangaStore((state) => state.addReading);
 
-  const chaps = mangaChap?.chapters;
-  // console.log(chaps)
-
   useEffect(() => {
     const fetchMangaChapters = async () => {
       const response = await fetch(
-        `https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}`
+        `${process.env.CORS_URL}https://api.comick.app/comic/${mangaIn.comic.id}/chapter?chap-order=${orderValue}`
       );
       const data = await response.json();
       setMangaChap(data);
     };
     fetchMangaChapters();
   }, [orderValue]);
+
+  const handleSubmit = () => {
+    setOrder((prev) => !prev);
+    order ? setOrderValue("1") : setOrderValue("0");
+  };
 
   return (
     <>
@@ -39,15 +38,10 @@ const MangaInfo = ({ mangaIn }) => {
       <div className="px-2 py-10 ">
         <MangaInformation mangaIn={mangaIn} readingCount={readingCount} />
         <div
-          onClick={() => setOrder((prev) => !prev)}
+          onClick={() => handleSubmit()}
           className="flex items-center gap-2 mt-10 cursor-pointer "
         >
-          <h1
-            onClick={() => (order ? setOrderValue("1") : setOrderValue("0"))}
-            className="text-2xl "
-          >
-            Chapters
-          </h1>
+          <h1 className="text-2xl ">Chapters</h1>
           <div className="">
             <h1 className="text-3xl">
               {order ? <AiOutlineArrowDown /> : <AiOutlineArrowUp />}
@@ -59,23 +53,18 @@ const MangaInfo = ({ mangaIn }) => {
             return (
               <Fragment key={chap.id}>
                 {chap.lang === "en" && (
-                  <div
+                  <Link
+                    href={`/chapterview/${chap.hid}`}
+                    className="rounded-md bg-[#3e3322] hover:bg-yellow-500 hover:text-black flex flex-col"
                     onClick={() => addReading(mangaIn.comic.id, chap.chap)}
-                    key={chap.id}
-                    className="rounded-md bg-[#3e3322] hover:bg-yellow-500 hover:text-black flex items-center justify-center"
                   >
-                    <Link href={`/chapterview/${chap.hid}`}>
-                      <div className="flex flex-col items-center justify-center ">
-                        <h1 className="p-4 ">
-                          {chap.chap === null ? "0" : chap.chap}
-                        </h1>
-
-                        <p className="w-1/2 text-xs truncate text-ellipsis">
-                          {chap.group_name}
-                        </p>
-                      </div>
-                    </Link>
-                  </div>
+                    <h1 className="text-center  p-4">{chap.chap === null ? "0" : chap.chap}</h1>
+                    <div className="w-full  p-1">
+                      <p className=" text-xs truncate text-center">
+                        {chap.group_name}
+                      </p>
+                    </div>
+                  </Link>
                 )}
               </Fragment>
             );
