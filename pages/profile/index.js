@@ -7,18 +7,25 @@ import Head from "next/head";
 
 const MyList = () => {
   const myMangaLists = useMyMangaStore((state) => state.myMangaLists);
-  const [myList, setMyList] = useState();
+  const [myList, setMyList] = useState(null);
   useEffect(() => {
     setMyList(myMangaLists);
   }, [myMangaLists]);
+
+  console.log(myList);
 
   return (
     <div>
       <Head>
         <title>My List</title>
       </Head>
-      {myList?.map((List) => {
-        return (
+
+      {myMangaLists.length === 0 ? (
+        <div className="flex items-center justify-center w-full h-[600px] ">
+          <h1 className="font-serif text-4xl">No BookMarks</h1>
+        </div>
+      ) : (
+        myList?.map((List) => (
           <div className="flex gap-4 mx-2 my-3" key={List.id}>
             <Image
               className="h-[200px] w-[150px]"
@@ -28,7 +35,6 @@ const MyList = () => {
               width={150}
               height={100}
               alt="cover"
-              
             />
             <div className="flex-col hover:bg-[#332818] p-3 rounded-sm w-2/3">
               <Link href={`/mangainformation/${List.slug}`}>
@@ -40,8 +46,8 @@ const MyList = () => {
               </Link>
             </div>
           </div>
-        );
-      })}
+        ))
+      )}
     </div>
   );
 };
