@@ -1,18 +1,14 @@
 import { useMyMangaStore } from "../../context/myMangaList";
 import { useState, useEffect } from "react";
-import { useQuery } from "react-query";
-import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
 
 const MyList = () => {
-  const myMangaLists = useMyMangaStore((state) => state.myMangaLists);
-  const [myList, setMyList] = useState(null);
+  const {myMangaLists} = useMyMangaStore.getState();
+  const [myList, setMyList] = useState([]);
   useEffect(() => {
     setMyList(myMangaLists);
   }, [myMangaLists]);
-
-  console.log(myList);
 
   return (
     <div>
@@ -20,20 +16,16 @@ const MyList = () => {
         <title>My List</title>
       </Head>
 
-      {myMangaLists.length === 0 ? (
+      {myList.length === 0 ? (
         <div className="flex items-center justify-center w-full h-[600px] ">
           <h1 className="font-serif text-4xl">No BookMarks</h1>
         </div>
       ) : (
-        myList?.map((List) => (
+        myList.map((List) => (
           <div className="flex gap-4 mx-2 my-3" key={List.id}>
-            <Image
+            <img
               className="h-[200px] w-[150px]"
-              priority={true}
               src={`https://meo.comick.pictures/${List.image.img}`}
-              as={`${List.image.img}`}
-              width={150}
-              height={100}
               alt="cover"
             />
             <div className="flex-col hover:bg-[#332818] p-3 rounded-sm w-2/3">

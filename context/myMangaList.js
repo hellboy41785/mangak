@@ -34,6 +34,6 @@ export const useMyMangaStore = create(
 
 export const useOrder = create((set) => ({
   orders:"0",
-  orderValue:(value)=>set((state)=>({orders:value}))
+  orderValue:(value)=>set(({orders:value}))
 })
 );

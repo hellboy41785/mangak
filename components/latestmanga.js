@@ -1,6 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
-import { useQuery } from "react-query";
+
 
 const LatestManga = ({ latest }) => {
   const info = latest.md_comics;
